@@ -18,7 +18,7 @@
     ],
     "require": {
         "php" : ">=5.3.0",
-        "yubico/u2flib-server": "0.1.0"
+        "yubico/u2flib-server": "dev-master@dev"
     },
     "autoload": {
         "psr-4": {
