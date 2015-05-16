@@ -1,0 +1,28 @@
+{
+    "name": "lahaxearnaud/laravel-u2f",
+    "description": "U2F support for laravel 5",
+    "keywords": [
+        "u2f",
+        "security",
+        "otp"
+    ],
+    "homepage": "https://github.com/lahaxearnaud/laravel-u2f",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "LAHAXE Arnaud",
+            "email": "lahaxe.arnaud@gmail.com",
+            "homepage": "http://lahaxe.fr",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php" : ">=5.3.0",
+        "yubico/u2flib-server": ""
+    },
+    "autoload": {
+        "psr-4": {
+            "Lahaxearnaud\\U2f\\": "src"
+        }
+    }
+}
