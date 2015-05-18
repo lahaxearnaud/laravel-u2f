@@ -29,7 +29,7 @@ class U2f
     {
 
         if(!$this->u2f->check()) {
-            return redirect('auth/u2f/auth');
+            return redirect('u2f/auth');
         }
 
         /** @var Response $response */

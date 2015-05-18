@@ -5,38 +5,33 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="Content-Language" content="fr" />
     <script src="chrome-extension://pfboblefjcgdjicmnffhdgionmgcdmne/u2f-api.js"></script>
-
-    <script>
-        setTimeout(function() {
-            var sigs = {!! json_encode($currentKeys) !!};
-            var req = {!! json_encode($registerData) !!};
-
-            u2f.register([req], sigs, function(data) {
-                var form = document.getElementById('form');
-                var reg = document.getElementById('register');
-                console.log("Register callback", data);
-                if(data.errorCode) {
-                    alert("registration failed with errror: " + data.errorCode);
-                    return;
-                }
-                reg.value = JSON.stringify(data);
-                form.submit();
-            });
-        }, 1000);
-    </script>
+    <script src="{!! route('u2f.assets.js') !!}"></script>
 </head>
 <body>
 
+<h1>Register u2f key</h1>
 
-<hr/>
-{!! json_encode($currentKeys) !!}
-<hr/>
-{!! json_encode($registerData) !!}
-
-{!! Form::open(array('route' => 'otp.register', 'id' => 'form')) !!}
-    {!! Form::text('register', '', ['id' => 'register']) !!}
-    {!! Form::submit('Enrol') !!}
+{!! Form::open(array('route' => 'u2f.register', 'id' => 'form')) !!}
+    {!! Form::hidden('register', '', ['id' => 'register']) !!}
 {!! Form::close() !!}
 
+<script>
+    setTimeout(function() {
+        var sigs = {!! json_encode($currentKeys) !!};
+        var req = {!! json_encode($registerData) !!};
+
+        u2f.register([req], sigs, function(data) {
+            var form = document.getElementById('form');
+            var reg = document.getElementById('register');
+            console.log("Register callback", data);
+            if(data.errorCode) {
+                alert("registration failed with errror: " + data.errorCode);
+                return;
+            }
+            reg.value = JSON.stringify(data);
+            form.submit();
+        });
+    }, 1000);
+</script>
 </body>
 </html>

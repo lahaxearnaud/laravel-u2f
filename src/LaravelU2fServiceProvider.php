@@ -21,11 +21,37 @@ class LaravelU2fServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        $router->get('auth/u2f/register', ['uses' => '\Lahaxearnaud\U2f\Http\Controllers\U2fController@registerData', 'as' => 'otp.register.data']);
-        $router->post('auth/u2f/register', ['uses' => '\Lahaxearnaud\U2f\Http\Controllers\U2fController@register', 'as' => 'otp.register']);
 
-        $router->get('auth/u2f/auth', ['uses' => '\Lahaxearnaud\U2f\Http\Controllers\U2fController@authData', 'as' => 'otp.auth.data']);
-        $router->post('auth/u2f/auth', ['uses' => '\Lahaxearnaud\U2f\Http\Controllers\U2fController@auth', 'as' => 'otp.auth']);
+        $routeConfig = [
+            'namespace' => '\Lahaxearnaud\U2f\Http\Controllers',
+            'prefix' => '/u2f/',
+        ];
+
+        $this->app['router']->group($routeConfig, function($router) {
+            $router->get('register', [
+                'uses' => 'U2fController@registerData',
+                'as' => 'u2f.register.data'
+            ]);
+            $router->post('register', [
+                'uses' => 'U2fController@register',
+                'as' => 'u2f.register'
+            ]);
+
+            $router->get('auth', [
+                'uses' => 'U2fController@authData',
+                'as' => 'u2f.auth.data'
+            ]);
+            $router->post('auth', [
+                'uses' => 'U2fController@auth',
+                'as' => 'u2f.auth'
+            ]);
+
+            $router->get('assets/javascript', [
+                'uses' => 'AssetController@js',
+                'as' => 'u2f.assets.js',
+            ]);
+        });
+
 
         $this->publishes([
             __DIR__ . '/../database/migrations/' => base_path('/database/migrations')

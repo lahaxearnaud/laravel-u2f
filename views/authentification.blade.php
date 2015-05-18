@@ -5,35 +5,31 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="Content-Language" content="fr" />
     <script src="chrome-extension://pfboblefjcgdjicmnffhdgionmgcdmne/u2f-api.js"></script>
-
-    <script>
-            var req = {!! json_encode($authentificationData) !!};
-
-            setTimeout(function() {
-                console.log("sign: ", req);
-                u2f.sign(req, function(data) {
-                    var form = document.getElementById('form');
-                    var auth = document.getElementById('authentification');
-                    console.log("Authenticate callback", data);
-                    auth.value=JSON.stringify(data);
-                    form.submit();
-                });
-            }, 1000);
-    </script>
+    <script src="{!! route('u2f.assets.js') !!}"></script>
 </head>
 <body>
 
 
-<hr/>
-<hr/>
-<pre>
-{!! json_encode(Session::all()) !!}
-</pre>
+<h1>Auth by key</h1>
 
-{!! Form::open(array('route' => 'otp.auth', 'id' => 'form')) !!}
-{!! Form::text('authentification', '', ['id' => 'authentification']) !!}
+{!! Form::open(array('route' => 'u2f.auth', 'id' => 'form')) !!}
+{!! Form::hidden('authentification', '', ['id' => 'authentification']) !!}
 {!! Form::submit('Enrol') !!}
 {!! Form::close() !!}
 
+
+<script>
+    setTimeout(function() {
+        var req = {!! json_encode($authentificationData) !!};
+
+        u2f.sign(req, function(data) {
+            var form = document.getElementById('form');
+            var auth = document.getElementById('authentification');
+            console.log("Authenticate callback", data);
+            auth.value=JSON.stringify(data);
+            form.submit();
+        });
+    }, 1000);
+</script>
 </body>
 </html>

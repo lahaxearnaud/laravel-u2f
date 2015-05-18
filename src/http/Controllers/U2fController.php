@@ -35,11 +35,11 @@ class U2fController extends Controller
             $key = $this->u2f->doRegister(\Auth::user(), \Session::get('registerData'), json_decode(\Input::get('register')));
             \Event::fire('u2f.register', ['u2fKey' => $key]);
 
-            return redirect();
+            return redirect('/');
 
         } catch (\Exception $e) {
 
-            return \Redirect::route('otp.register.data');
+            return \Redirect::route('u2f.register.data');
         }
     }
 
@@ -63,7 +63,7 @@ class U2fController extends Controller
         } catch (\Exception $e) {
             \Session::flash('error', $e->getMessage());
 
-            return \Redirect::route('otp.auth.data');
+            return \Redirect::route('u2f.auth.data');
         }
     }
 }
