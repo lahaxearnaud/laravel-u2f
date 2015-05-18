@@ -12,14 +12,24 @@ class U2fController extends Controller
      */
     protected $u2f;
 
+    /**
+     * @param \Lahaxearnaud\U2f\LaravelU2f $u2f
+     */
     public function __construct(LaravelU2f $u2f)
     {
         $this->u2f = $u2f;
     }
 
+    /**
+     * @author LAHAXE Arnaud
+     *
+     *
+     * @return mixed
+     */
     public function registerData()
     {
         list($req, $sigs) = $this->u2f->getRegisterData(\Auth::user());
+        \Event::fire('u2f.register.data', [ 'user' => \Auth::user()]);
 
         \Session::set('registerData', $req);
 
@@ -29,11 +39,17 @@ class U2fController extends Controller
 
     }
 
+    /**
+     * @author LAHAXE Arnaud
+     *
+     *
+     * @return mixed
+     */
     public function register()
     {
         try {
             $key = $this->u2f->doRegister(\Auth::user(), \Session::get('registerData'), json_decode(\Input::get('register')));
-            \Event::fire('u2f.register', [ 'u2fKey' => $key ]);
+            \Event::fire('u2f.register', [ 'u2fKey' => $key, 'user' => \Auth::user()]);
 
             return redirect('/');
 
@@ -43,9 +59,16 @@ class U2fController extends Controller
         }
     }
 
+    /**
+     * @author LAHAXE Arnaud
+     *
+     *
+     * @return mixed
+     */
     public function authData()
     {
         $req = $this->u2f->getAuthenticateData(\Auth::user());
+        \Event::fire('u2f.authentification.data', [ 'user' => \Auth::user()]);
 
         \Session::set('authentificationData', $req);
 
@@ -53,10 +76,17 @@ class U2fController extends Controller
             ->with('authentificationData', $req);
     }
 
+    /**
+     * @author LAHAXE Arnaud
+     *
+     *
+     * @return mixed
+     */
     public function auth()
     {
         try {
-            $this->u2f->doAuthenticate(\Auth::user(), \Session::get('authentificationData'), json_decode(\Input::get('authentification')));
+            $key = $this->u2f->doAuthenticate(\Auth::user(), \Session::get('authentificationData'), json_decode(\Input::get('authentification')));
+            \Event::fire('u2f.authentification', [ 'u2fKey' => $key, 'user' => \Auth::user()]);
 
             return redirect('/');
 

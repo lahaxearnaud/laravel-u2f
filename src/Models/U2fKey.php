@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class OtpKey
  *
- * @author  LAHAXE Arnaud <lahaxe.arnaud@gmail.com>
+ * @author  LAHAXE Arnaud
  * @package Lahaxearnaud\U2f\Models
  */
 class U2fKey extends Model

@@ -4,6 +4,14 @@ use Closure;
 use Illuminate\Http\Response;
 use Lahaxearnaud\U2f\LaravelU2f;
 
+/**
+ * Class U2f
+ *
+ *
+ *
+ * @package Lahaxearnaud\U2f\Http\Middleware
+ * @author  LAHAXE Arnaud
+ */
 class U2f
 {
 

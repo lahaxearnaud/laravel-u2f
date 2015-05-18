@@ -3,6 +3,13 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
+/**
+ * Class CreateU2fKeyTable
+ *
+ *
+ *
+ * @author  LAHAXE Arnaud
+ */
 class CreateU2fKeyTable extends Migration
 {
 
@@ -37,7 +44,5 @@ class CreateU2fKeyTable extends Migration
     public function down()
     {
         Schema::drop('u2f_key');
-
     }
-
 }

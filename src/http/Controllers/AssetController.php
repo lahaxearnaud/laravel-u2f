@@ -1,16 +1,17 @@
 <?php namespace Lahaxearnaud\U2f\Http\Controllers;
 
-/**
- * Created by PhpStorm.
- * Author LAHAXE Arnaud <lahaxe.arnaud@gmail.com>
- * Date: 18/05/15
- * Time: 07:32
- */
-
 use Illuminate\Http\Response;
 
 use App\Http\Controllers\Controller;
 
+/**
+ * Class AssetController
+ *
+ *
+ *
+ * @package Lahaxearnaud\U2f\Http\Controllers
+ * @author  LAHAXE Arnaud
+ */
 class AssetController extends Controller{
 
     public function js ()
