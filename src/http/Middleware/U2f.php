@@ -12,7 +12,7 @@ class U2f
      */
     protected $u2f;
 
-    public function __construct (LaravelU2f $u2f)
+    public function __construct(LaravelU2f $u2f)
     {
         $this->u2f = $u2f;
     }
@@ -28,7 +28,7 @@ class U2f
     public function handle($request, Closure $next)
     {
 
-        if(!$this->u2f->check()) {
+        if (!$this->u2f->check()) {
             return redirect('u2f/auth');
         }
 

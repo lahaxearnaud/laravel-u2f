@@ -7,7 +7,7 @@ class LaravelU2f {
 
     protected $u2f;
 
-    public function __construct ()
+    public function __construct()
     {
         $scheme = \Request::isSecure() ? "https://" : "http://";
         $this->u2f = new \u2flib_server\U2F($scheme . \Request::getHttpHost());
@@ -21,7 +21,7 @@ class LaravelU2f {
 
     public function doRegister(User $user, $registerData, $keyData)
     {
-        $reg = $this->u2f->doRegister( $registerData, $keyData);
+        $reg = $this->u2f->doRegister($registerData, $keyData);
         $reg->user_id = $user->id;
 
         return U2fKey::create((array) $reg);
@@ -48,7 +48,7 @@ class LaravelU2f {
             'publicKey' => $reg->publicKey
         ])->first();
 
-        if(is_null($U2fKey)) {
+        if (is_null($U2fKey)) {
             return false;
         }
 
