@@ -4,7 +4,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="Content-Language" content="fr" />
-    <script src="chrome-extension://pfboblefjcgdjicmnffhdgionmgcdmne/u2f-api.js"></script>
     <script src="{!! route('u2f.assets.js') !!}"></script>
 </head>
 <body>
@@ -17,11 +16,11 @@
 {!! Form::close() !!}
 
 
-<script>
+<script type="text/javascript">
     setTimeout(function() {
         var req = {!! json_encode($authentificationData) !!};
 
-        window.u2fClient.authentification(req, function(data) {
+        u2f.sign(req, function(data) {
             var form = document.getElementById('form');
             var auth = document.getElementById('authentification');
             console.log("Authenticate callback", data);
