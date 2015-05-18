@@ -1,8 +1,10 @@
 <?php namespace Lahaxearnaud\U2f\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Response;
 use Lahaxearnaud\U2f\LaravelU2f;
+use Lahaxearnaud\U2f\Models\U2fKey;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Illuminate\Config\Repository as Config;
 
 /**
  * Class U2f
@@ -20,9 +22,15 @@ class U2f
      */
     protected $u2f;
 
-    public function __construct(LaravelU2f $u2f)
+    /**
+     * @var Config
+     */
+    protected  $config;
+
+    public function __construct(LaravelU2f $u2f, Config $config)
     {
         $this->u2f = $u2f;
+        $this->config = $config;
     }
 
     /**
@@ -35,12 +43,26 @@ class U2f
      */
     public function handle($request, Closure $next)
     {
-
-        if (!$this->u2f->check()) {
-            return redirect('u2f/auth');
+        if(!$this->config->get('u2f.enable')) {
+            return $next($request);
         }
 
-        /** @var Response $response */
+        if (!$this->u2f->check()) {
+            if(!\Auth::guest()){
+                if(
+                    U2fKey::where('user_id', '=', \Auth::user()->id)->count()  === 0
+                    && $this->config->get('u2f.byPassUserWithoutKey')
+                ) {
+                    return $next($request);
+                } else {
+                    return redirect('u2f/auth');
+                }
+
+            } else {
+                throw new HttpException(401, 'You need to log in before an u2f authentication');
+            }
+        }
+
         return $next($request);
     }
 }

@@ -14,7 +14,7 @@ return [
     'enable' => true,
 
     /*
-     * Do not redirect user without u2f key to the authentication page after login
+     * Do not redirect user without u2f key to the u2fauthentication page after login
      */
     'byPassUserWithoutKey' => true,
 
@@ -25,7 +25,7 @@ return [
         /*
          * the template to load for the registration page
          */
-        'view' => '',
+        'view' => 'u2f::register',
 
         /*
          * the route to redirect after a successful key registration (default /)
@@ -38,7 +38,7 @@ return [
         /*
          * the template to load for the authentication page
          */
-        'view' => '',
+        'view' => 'u2f::authentication',
 
         /*
          * the route to redirect after a successful key authentication (default /)

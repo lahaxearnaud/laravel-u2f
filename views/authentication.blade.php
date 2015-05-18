@@ -11,6 +11,8 @@
 
 <h1>Auth by key</h1>
 
+<img src="https://developers.yubico.com/U2F/u2f_workflow.png" alt="U2F Workflow"/>
+
 {!! Form::open(array('route' => 'u2f.auth', 'id' => 'form')) !!}
 {!! Form::hidden('authentication', '', ['id' => 'authentication']) !!}
 {!! Form::close() !!}

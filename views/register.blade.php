@@ -10,6 +10,8 @@
 
 <h1>Register u2f key</h1>
 
+<img src="https://developers.yubico.com/U2F/u2f_workflow.png" alt="U2F Workflow"/>
+
 {!! Form::open(array('route' => 'u2f.register', 'id' => 'form')) !!}
     {!! Form::hidden('register', '', ['id' => 'register']) !!}
 {!! Form::close() !!}

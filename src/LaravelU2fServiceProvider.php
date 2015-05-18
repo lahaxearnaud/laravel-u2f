@@ -56,6 +56,8 @@ class LaravelU2fServiceProvider extends ServiceProvider
             __DIR__ . '/../database/migrations/' => base_path('/database/migrations')
         ], 'migrations');
 
+        $this->publishes([(__DIR__ . '/../config/u2f.php') => config_path('u2f.php')], 'config');
+
         $this->loadViewsFrom(__DIR__ . '/../views/', 'u2f');
 
     }

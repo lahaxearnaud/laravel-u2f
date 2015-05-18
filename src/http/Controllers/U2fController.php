@@ -3,6 +3,8 @@
 use App\Event;
 use App\Http\Controllers\Controller;
 use Lahaxearnaud\U2f\LaravelU2f;
+use Illuminate\Config\Repository as Config;
+
 
 class U2fController extends Controller
 {
@@ -13,11 +15,18 @@ class U2fController extends Controller
     protected $u2f;
 
     /**
-     * @param \Lahaxearnaud\U2f\LaravelU2f $u2f
+     * @var Config
      */
-    public function __construct(LaravelU2f $u2f)
+    protected  $config;
+
+    /**
+     * @param LaravelU2f $u2f
+     * @param Config $config
+     */
+    public function __construct(LaravelU2f $u2f, Config $config)
     {
         $this->u2f = $u2f;
+        $this->config = $config;
     }
 
     /**
@@ -33,7 +42,7 @@ class U2fController extends Controller
 
         \Session::set('u2f.registerData', $req);
 
-        return view('u2f::register')
+        return view($this->config->get('u2f.register.view'))
             ->with('currentKeys', $sigs)
             ->with('registerData', $req);
 
@@ -52,7 +61,12 @@ class U2fController extends Controller
             \Event::fire('u2f.register', [ 'u2fKey' => $key, 'user' => \Auth::user()]);
             \Session::forget('u2f.registerData');
 
-            return redirect('/');
+            if($this->config->get('u2f.register.postSuccessRedirectRoute')) {
+
+                return \Redirect::route($this->config->get('u2f.register.postSuccessRedirectRoute'));
+            } else {
+                return redirect('/');
+            }
 
         } catch (\Exception $e) {
 
@@ -73,7 +87,7 @@ class U2fController extends Controller
 
         \Session::set('u2f.authenticationData', $req);
 
-        return view('u2f::authentication')
+        return view($this->config->get('u2f.authenticate.view'))
             ->with('authenticationData', $req);
     }
 
@@ -90,8 +104,12 @@ class U2fController extends Controller
             \Event::fire('u2f.authentication', [ 'u2fKey' => $key, 'user' => \Auth::user()]);
             \Session::forget('u2f.authenticationData');
 
-            return redirect('/');
+            if(strlen($this->config->get('u2f.authenticate.postSuccessRedirectRoute'))) {
 
+                return \Redirect::route($this->config->get('u2f.authenticate.postSuccessRedirectRoute'));
+            } else {
+                return redirect('/');
+            }
         } catch (\Exception $e) {
             \Session::flash('error', $e->getMessage());
 
