@@ -12,12 +12,12 @@ class U2fController extends Controller
      */
     protected $u2f;
 
-    public function __construct (LaravelU2f $u2f)
+    public function __construct(LaravelU2f $u2f)
     {
         $this->u2f = $u2f;
     }
 
-    public function registerData ()
+    public function registerData()
     {
         list($req, $sigs) = $this->u2f->getRegisterData(\Auth::user());
 
@@ -29,11 +29,11 @@ class U2fController extends Controller
 
     }
 
-    public function register ()
+    public function register()
     {
         try {
             $key = $this->u2f->doRegister(\Auth::user(), \Session::get('registerData'), json_decode(\Input::get('register')));
-            \Event::fire('u2f.register', ['u2fKey' => $key]);
+            \Event::fire('u2f.register', [ 'u2fKey' => $key ]);
 
             return redirect('/');
 
@@ -43,9 +43,9 @@ class U2fController extends Controller
         }
     }
 
-    public function authData ()
+    public function authData()
     {
-        $req =  $this->u2f->getAuthenticateData(\Auth::user());
+        $req = $this->u2f->getAuthenticateData(\Auth::user());
 
         \Session::set('authentificationData', $req);
 
@@ -53,7 +53,7 @@ class U2fController extends Controller
             ->with('authentificationData', $req);
     }
 
-    public function auth ()
+    public function auth()
     {
         try {
             $this->u2f->doAuthenticate(\Auth::user(), \Session::get('authentificationData'), json_decode(\Input::get('authentification')));
