@@ -7,7 +7,7 @@ class LaravelU2f {
 
     protected $u2f;
 
-    function __construct ()
+    public function __construct ()
     {
         $scheme = \Request::isSecure() ? "https://" : "http://";
         $this->u2f = new \u2flib_server\U2F($scheme . \Request::getHttpHost());

@@ -12,7 +12,7 @@ class U2f
      */
     protected $u2f;
 
-    function __construct (LaravelU2f $u2f)
+    public function __construct (LaravelU2f $u2f)
     {
         $this->u2f = $u2f;
     }
