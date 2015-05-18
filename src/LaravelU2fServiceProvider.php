@@ -2,7 +2,6 @@
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
-use \Config as Config;
 
 class LaravelU2fServiceProvider extends ServiceProvider
 {
@@ -27,7 +26,7 @@ class LaravelU2fServiceProvider extends ServiceProvider
             'prefix' => '/u2f/',
         ];
 
-        $this->app['router']->group($routeConfig, function($router) {
+        $this->app['router']->group($routeConfig, function(Router $router) {
             $router->get('register', [
                 'uses' => 'U2fController@registerData',
                 'as' => 'u2f.register.data'
