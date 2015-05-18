@@ -31,7 +31,7 @@ class U2fController extends Controller
         list($req, $sigs) = $this->u2f->getRegisterData(\Auth::user());
         \Event::fire('u2f.register.data', [ 'user' => \Auth::user()]);
 
-        \Session::set('registerData', $req);
+        \Session::set('u2f.registerData', $req);
 
         return view('u2f::register')
             ->with('currentKeys', $sigs)
@@ -48,8 +48,9 @@ class U2fController extends Controller
     public function register()
     {
         try {
-            $key = $this->u2f->doRegister(\Auth::user(), \Session::get('registerData'), json_decode(\Input::get('register')));
+            $key = $this->u2f->doRegister(\Auth::user(), \Session::get('u2f.registerData'), json_decode(\Input::get('register')));
             \Event::fire('u2f.register', [ 'u2fKey' => $key, 'user' => \Auth::user()]);
+            \Session::forget('u2f.registerData');
 
             return redirect('/');
 
@@ -68,12 +69,12 @@ class U2fController extends Controller
     public function authData()
     {
         $req = $this->u2f->getAuthenticateData(\Auth::user());
-        \Event::fire('u2f.authentification.data', [ 'user' => \Auth::user()]);
+        \Event::fire('u2f.authentication.data', [ 'user' => \Auth::user()]);
 
-        \Session::set('authentificationData', $req);
+        \Session::set('u2f.authenticationData', $req);
 
-        return view('u2f::authentification')
-            ->with('authentificationData', $req);
+        return view('u2f::authentication')
+            ->with('authenticationData', $req);
     }
 
     /**
@@ -85,8 +86,9 @@ class U2fController extends Controller
     public function auth()
     {
         try {
-            $key = $this->u2f->doAuthenticate(\Auth::user(), \Session::get('authentificationData'), json_decode(\Input::get('authentification')));
-            \Event::fire('u2f.authentification', [ 'u2fKey' => $key, 'user' => \Auth::user()]);
+            $key = $this->u2f->doAuthenticate(\Auth::user(), \Session::get('u2f.authenticationData'), json_decode(\Input::get('authentication')));
+            \Event::fire('u2f.authentication', [ 'u2fKey' => $key, 'user' => \Auth::user()]);
+            \Session::forget('u2f.authenticationData');
 
             return redirect('/');
 
