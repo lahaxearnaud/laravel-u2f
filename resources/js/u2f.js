@@ -8,7 +8,7 @@ window.u2fClient = {
         u2f.register([req], sigs, callback);
     },
 
-    authentification: function(req) {
+    authentification: function(req, callback) {
         u2f.sign(req, callback);
     }
 };

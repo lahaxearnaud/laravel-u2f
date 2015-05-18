@@ -14,7 +14,6 @@
 
 {!! Form::open(array('route' => 'u2f.auth', 'id' => 'form')) !!}
 {!! Form::hidden('authentification', '', ['id' => 'authentification']) !!}
-{!! Form::submit('Enrol') !!}
 {!! Form::close() !!}
 
 
@@ -22,7 +21,7 @@
     setTimeout(function() {
         var req = {!! json_encode($authentificationData) !!};
 
-        u2f.sign(req, function(data) {
+        window.u2fClient.authentification(req, function(data) {
             var form = document.getElementById('form');
             var auth = document.getElementById('authentification');
             console.log("Authenticate callback", data);
