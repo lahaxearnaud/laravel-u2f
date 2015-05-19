@@ -61,7 +61,7 @@ class U2fController extends Controller
             \Event::fire('u2f.register', [ 'u2fKey' => $key, 'user' => \Auth::user() ]);
             \Session::forget('u2f.registerData');
 
-            if($this->config->get('u2f.register.postSuccessRedirectRoute')) {
+            if ($this->config->get('u2f.register.postSuccessRedirectRoute')) {
 
                 return \Redirect::route($this->config->get('u2f.register.postSuccessRedirectRoute'));
             } else {
@@ -104,7 +104,7 @@ class U2fController extends Controller
             \Event::fire('u2f.authentication', [ 'u2fKey' => $key, 'user' => \Auth::user() ]);
             \Session::forget('u2f.authenticationData');
 
-            if(strlen($this->config->get('u2f.authenticate.postSuccessRedirectRoute'))) {
+            if (strlen($this->config->get('u2f.authenticate.postSuccessRedirectRoute'))) {
 
                 return \Redirect::route($this->config->get('u2f.authenticate.postSuccessRedirectRoute'));
             } else {
