@@ -20,7 +20,7 @@ class CreateU2fKeyTable extends Migration
      */
     public function up()
     {
-        Schema::create('u2f_key', function (Blueprint $table) {
+        Schema::create('u2f_key', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('keyHandle');
