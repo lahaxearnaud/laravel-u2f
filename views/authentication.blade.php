@@ -5,18 +5,41 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="Content-Language" content="fr" />
     <script src="{!! route('u2f.assets.js') !!}"></script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
+<div class="container" style="margin-top:30px">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="login-panel panel panel-default">
+            <div class="panel-heading">
+                <h1 class="panel-title">Validation en deux étapes</h1>
+            </div>
+            <div class="panel-body" style="padding: 5px">
 
-<h1>Auth by key</h1>
+                <div align="center">
+                    <img src="https://ssl.gstatic.com/accounts/strongauth/Challenge_2SV-Gnubby_graphic.png" alt=""/>
+                </div>
 
-<img src="https://developers.yubico.com/U2F/u2f_workflow.png" alt="U2F Workflow"/>
+                <h3>
+                    Insérez votre clé de sécurité.
+                </h3>
+
+                <p>
+                    Si votre clé de sécurité comporte un bouton, appuyez sur celui-ci.
+                    <br>
+                    Si ce n'est pas le cas, retirez-la, puis insérez-la à nouveau.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 {!! Form::open(array('route' => 'u2f.auth', 'id' => 'form')) !!}
 {!! Form::hidden('authentication', '', ['id' => 'authentication']) !!}
 {!! Form::close() !!}
-
 
 <script type="text/javascript">
     setTimeout(function() {
