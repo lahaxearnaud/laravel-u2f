@@ -26,7 +26,7 @@ class LaravelU2fServiceProvider extends ServiceProvider
             'prefix' => '/u2f/',
         ];
 
-        $this->app['router']->group($routeConfig, function(Router $router) {
+        $this->app[ 'router' ]->group($routeConfig, function(Router $router) {
             $router->get('register', [
                 'uses' => 'U2fController@registerData',
                 'as' => 'u2f.register.data'
@@ -69,7 +69,7 @@ class LaravelU2fServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('laravelu2f', function () {
+        $this->app->bind('laravelu2f', function() {
 
             return new LaravelU2f();
         });
@@ -82,7 +82,7 @@ class LaravelU2fServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['laravelu2f'];
+        return [ 'laravelu2f' ];
     }
 
 }

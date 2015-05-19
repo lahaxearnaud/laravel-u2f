@@ -12,9 +12,9 @@ use App\Http\Controllers\Controller;
  * @package Lahaxearnaud\U2f\Http\Controllers
  * @author  LAHAXE Arnaud
  */
-class AssetController extends Controller{
+class AssetController extends Controller {
 
-    public function js ()
+    public function js()
     {
 
         return new Response(
