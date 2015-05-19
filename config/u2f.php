@@ -14,9 +14,14 @@ return [
     'enable' => true,
 
     /*
-     * Do not redirect user without u2f key to the u2fauthentication page after login
+     * Do not redirect user without u2f key to the u2f authentication page after login
      */
     'byPassUserWithoutKey' => true,
+
+    /*
+     * The sessionU2fName attribut will be set to true when the user validate an u2f
+     */
+    'sessionU2fName' => 'otp',
 
     /*
      * Controller configuration

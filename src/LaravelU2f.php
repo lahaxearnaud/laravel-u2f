@@ -2,6 +2,9 @@
 
 use App\User;
 use Lahaxearnaud\U2f\Models\U2fKey;
+use Illuminate\Config\Repository as Config;
+use Illuminate\Session\SessionManager as Session;
+
 
 /**
  * Class LaravelU2f
@@ -19,12 +22,24 @@ class LaravelU2f {
     protected $u2f;
 
     /**
-     *
+     * @var Config
      */
-    public function __construct()
+    protected  $config;
+
+    /**
+     * @var Session
+     */
+    protected  $session;
+
+    /**
+     * @param \Illuminate\Config\Repository $config
+     */
+    public function __construct(Config $config, Session $session)
     {
         $scheme = \Request::isSecure() ? "https://" : "http://";
         $this->u2f = new \u2flib_server\U2F($scheme . \Request::getHttpHost());
+        $this->config = $config;
+        $this->session = $session;
     }
 
     /**
@@ -88,7 +103,6 @@ class LaravelU2f {
             $keyData
         );
 
-
         $U2fKey = U2fKey::where([
             'user_id' => $user->id,
             'publicKey' => $reg->publicKey
@@ -100,9 +114,8 @@ class LaravelU2f {
 
         $U2fKey->counter = $reg->counter;
         $U2fKey->save();
-
-
-        \Session::set('u2f', true);
+        
+        $this->session->set($this->config->get('u2f.sessionU2fName'), true);
 
         return $U2fKey;
     }
@@ -115,6 +128,6 @@ class LaravelU2f {
      */
     public function check()
     {
-        return \Session::get('u2f', false);
+        return $this->session->get($this->config->get('u2f.sessionU2fName'), false);
     }
 }
