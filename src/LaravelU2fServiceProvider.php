@@ -69,9 +69,10 @@ class LaravelU2fServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('laravelu2f', function() {
+        $app = $this->app;
+        $this->app->bind('laravelu2f', function() use ($app){
 
-            return new LaravelU2f();
+            return new LaravelU2f($app->make('config'), $this->app->make('session'));
         });
     }
 
