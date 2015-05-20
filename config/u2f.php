@@ -1,11 +1,11 @@
 <?php
 /**
- * User: LAHAXE Arnaud <alahaxe@boursorama.fr>
- * Date: 18/05/2015
- * Time: 17:49
- * FileName : u2f.php
- * Project : laravel-u2f
- */
+     * User: LAHAXE Arnaud <alahaxe@boursorama.fr>
+     * Date: 18/05/2015
+     * Time: 17:49
+     * FileName : u2f.php
+     * Project : laravel-u2f
+     */
 
 return [
     /*
