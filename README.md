@@ -28,21 +28,21 @@ In the config/app.php file:
 ``` php
 [
     //...
-    'U2f' => 'Lahaxeanaud\U2f\LaravelU2fServiceFacade'
+    'U2f' => 'Lahaxeanaud\U2f\U2fServiceFacade'
 ]
 ```
 
 ### Configs
 
 ``` bash
-$ php artisan vendor:publish --provider="Lahaxeanaud\U2f\LaravelU2fServiceProvider" --tag=config
+$ php artisan vendor:publish --provider="Lahaxeanaud\U2f\U2fServiceProvider" --tag=config
 $ php artisan migrate
 ```
 
 ### Migrations
 
 ``` bash
-$ php artisan vendor:publish --provider="Lahaxeanaud\U2f\LaravelU2fServiceProvider" --tag=migrations
+$ php artisan vendor:publish --provider="Lahaxeanaud\U2f\U2fServiceProvider" --tag=migrations
 $ php artisan migrate
 ```
 
