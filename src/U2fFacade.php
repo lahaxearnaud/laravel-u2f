@@ -2,12 +2,12 @@
 
 use Illuminate\Support\Facades\Facade;
 
-class LaravelU2fFacade extends Facade {
+class U2fFacade extends Facade {
 
     /**
      * Get the registered name of the component.
      *
      * @return string
      */
-    protected static function getFacadeAccessor() { return 'pushbullet'; }
+    protected static function getFacadeAccessor() { return 'u2f'; }
 }

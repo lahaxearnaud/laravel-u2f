@@ -3,7 +3,7 @@
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 
-class LaravelU2fServiceProvider extends ServiceProvider
+class U2fServiceProvider extends ServiceProvider
 {
 
     /**
@@ -70,9 +70,9 @@ class LaravelU2fServiceProvider extends ServiceProvider
     public function register()
     {
         $app = $this->app;
-        $this->app->bind('laravelu2f', function() use ($app){
+        $this->app->bind('u2f', function() use ($app){
 
-            return new LaravelU2f($app->make('config'), $this->app->make('session'));
+            return new U2f($app->make('config'), $this->app->make('session'));
         });
     }
 
@@ -83,7 +83,7 @@ class LaravelU2fServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return [ 'laravelu2f' ];
+        return [ 'u2f' ];
     }
 
 }

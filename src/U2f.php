@@ -14,7 +14,7 @@ use Illuminate\Session\SessionManager as Session;
  * @package Lahaxearnaud\U2f
  * @author  LAHAXE Arnaud
  */
-class LaravelU2f {
+class U2f {
 
     /**
      * @var \u2flib_server\U2F

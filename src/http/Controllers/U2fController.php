@@ -2,7 +2,7 @@
 
 use App\Event;
 use App\Http\Controllers\Controller;
-use Lahaxearnaud\U2f\LaravelU2f;
+use Lahaxearnaud\U2f\U2f as LaravelU2f;
 use Illuminate\Config\Repository as Config;
 
 

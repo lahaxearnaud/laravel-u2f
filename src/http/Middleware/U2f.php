@@ -1,7 +1,7 @@
 <?php namespace Lahaxearnaud\U2f\Http\Middleware;
 
 use Closure;
-use Lahaxearnaud\U2f\LaravelU2f;
+use Lahaxearnaud\U2f\U2f as LaravelU2f;
 use Lahaxearnaud\U2f\Models\U2fKey;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Config\Repository as Config;
@@ -27,7 +27,7 @@ class U2f
      */
     protected  $config;
 
-    public function __construct(LaravelU2f $u2f, Config $config)
+    public function __construct(\Lahaxearnaud\U2f\U2f $u2f, Config $config)
     {
         $this->u2f = $u2f;
         $this->config = $config;
