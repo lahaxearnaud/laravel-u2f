@@ -44,11 +44,6 @@ class U2fServiceProvider extends ServiceProvider
                 'uses' => 'U2fController@auth',
                 'as' => 'u2f.auth'
             ]);
-
-            $router->get('assets/javascript', [
-                'uses' => 'AssetController@js',
-                'as' => 'u2f.assets.js',
-            ]);
         });
 
 
@@ -58,10 +53,12 @@ class U2fServiceProvider extends ServiceProvider
 
         $this->publishes([ (__DIR__ . '/../config/u2f.php') => config_path('u2f.php') ], 'config');
 
+        $this->publishes([
+            __DIR__. '/../resources/js' => public_path('vendor/u2f'),
+        ], 'public');
 
         $this->loadViewsFrom(__DIR__ . '/../views/', 'u2f');
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'u2f');
-
 
     }
 

@@ -4,8 +4,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="Content-Language" content="fr" />
-    <script src="{!! route('u2f.assets.js') !!}"></script>
-
+    <script src="{!! secure_asset('vendor/u2f/u2f.js') !!}"></script>
+    <script src="{!! secure_asset('vendor/u2f/app.js') !!}"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -47,7 +47,6 @@
 {!! Form::close() !!}
 
 <script type="text/javascript">
-    setTimeout(function() {
         var req = {!! json_encode($authenticationData) !!};
 
         var errors = {
@@ -58,26 +57,7 @@
             5: "{{ trans('u2f::errors.timeout') }}"
         };
 
-        u2f.sign(req, function(data) {
-            var alert = null;
-
-            if(data.errorCode) {
-                alert = document.getElementById('error');
-                alert.innerHTML = errors[data.errorCode];
-                alert.style.display = 'block';
-
-                return;
-            }
-
-            var form = document.getElementById('form');
-            var auth = document.getElementById('authentication');
-
-            alert = document.getElementById('success');
-            alert.style.display = 'block';
-            auth.value=JSON.stringify(data);
-            form.submit();
-        });
-    }, 1000);
+        u2fClient.login(req, errors);
 </script>
 </body>
 </html>

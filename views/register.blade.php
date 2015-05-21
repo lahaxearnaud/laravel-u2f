@@ -4,7 +4,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="Content-Language" content="fr" />
-    <script src="{!! route('u2f.assets.js') !!}"></script>
+    <script src="{!! secure_asset('vendor/u2f/u2f.js') !!}"></script>
+    <script src="{!! secure_asset('vendor/u2f/app.js') !!}"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -60,27 +61,7 @@
         5: "{{ trans('u2f::errors.timeout') }}"
     };
 
-    setTimeout(function() {
-        u2f.register([req], sigs, function(data) {
-            var form = document.getElementById('form');
-            var reg = document.getElementById('register');
-            var alert = null;
-
-            if(data.errorCode) {
-                alert = document.getElementById('error');
-                alert.innerHTML = errors[data.errorCode];
-                alert.style.display = 'block';
-
-                return;
-            }
-
-            alert = document.getElementById('success');
-            alert.style.display = 'block';
-
-            reg.value = JSON.stringify(data);
-            form.submit();
-        });
-    }, 1000);
+    u2fClient.register(req, sigs, errors);
 </script>
 </body>
 </html>
