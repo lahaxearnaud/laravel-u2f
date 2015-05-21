@@ -46,9 +46,12 @@
         var req = {!! json_encode($authenticationData) !!};
 
         u2f.sign(req, function(data) {
+            if(data.errorCode) {
+                alert("registration failed with error: " + data.errorCode);
+                return;
+            }
             var form = document.getElementById('form');
             var auth = document.getElementById('authentication');
-            console.log("Authenticate callback", data);
             auth.value=JSON.stringify(data);
             form.submit();
         });

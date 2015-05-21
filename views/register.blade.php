@@ -45,13 +45,13 @@
 
     setTimeout(function() {
         u2f.register([req], sigs, function(data) {
-            var form = document.getElementById('form');
-            var reg = document.getElementById('register');
-            console.log("Register callback", data);
             if(data.errorCode) {
                 alert("registration failed with error: " + data.errorCode);
                 return;
             }
+
+            var form = document.getElementById('form');
+            var reg = document.getElementById('register');
             reg.value = JSON.stringify(data);
             form.submit();
         });
