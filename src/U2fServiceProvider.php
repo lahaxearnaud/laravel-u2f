@@ -58,7 +58,10 @@ class U2fServiceProvider extends ServiceProvider
 
         $this->publishes([ (__DIR__ . '/../config/u2f.php') => config_path('u2f.php') ], 'config');
 
+
         $this->loadViewsFrom(__DIR__ . '/../views/', 'u2f');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'u2f');
+
 
     }
 

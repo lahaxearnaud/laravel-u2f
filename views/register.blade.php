@@ -9,31 +9,40 @@
 </head>
 <body>
 
+
+
 <div class="container" style="margin-top:30px">
     <div class="col-md-6 col-md-offset-3">
         <div class="login-panel panel panel-default">
             <div class="panel-heading">
-                <h1 class="panel-title">Enregistrement d'une clef de sécurité</h1>
+                <h1 class="panel-title">{{ trans('u2f::messages.register.title') }}</h1>
             </div>
             <div class="panel-body" style="padding: 5px">
+
+                <div class="alert alert-danger" role="alert" id="error" style="display: none"></div>
+                <div class="alert alert-success" role="alert" id="success" style="display: none">
+                    {{ trans('u2f::messages.success') }}
+                </div>
 
                 <div align="center">
                     <img src="https://ssl.gstatic.com/accounts/strongauth/Challenge_2SV-Gnubby_graphic.png" alt=""/>
                 </div>
 
                 <h3>
-                    Insérez votre clé de sécurité.
+                    {{ trans('u2f::messages.insertKey') }}
                 </h3>
 
                 <p>
-                    Si votre clé de sécurité comporte un bouton, appuyez sur celui-ci.
+                    {{ trans('u2f::messages.buttonAdvise') }}
                     <br>
-                    Si ce n'est pas le cas, retirez-la, puis insérez-la à nouveau.
+                    {{ trans('u2f::messages.noButtonAdvise') }}
                 </p>
             </div>
         </div>
     </div>
 </div>
+
+
 
 {!! Form::open(array('route' => 'u2f.register', 'id' => 'form')) !!}
     {!! Form::hidden('register', '', ['id' => 'register']) !!}
@@ -43,15 +52,31 @@
     var sigs = {!! json_encode($currentKeys) !!};
     var req = {!! json_encode($registerData) !!};
 
+    var errors = {
+        1: "{{ trans('u2f::errors.other_error') }}",
+        2: "{{ trans('u2f::errors.bad_request') }}",
+        3: "{{ trans('u2f::errors.configuration_unsupported') }}",
+        4: "{{ trans('u2f::errors.device_ineligible') }}",
+        5: "{{ trans('u2f::errors.timeout') }}"
+    };
+
     setTimeout(function() {
         u2f.register([req], sigs, function(data) {
+            var form = document.getElementById('form');
+            var reg = document.getElementById('register');
+            var alert = null;
+
             if(data.errorCode) {
-                alert("registration failed with error: " + data.errorCode);
+                alert = document.getElementById('error');
+                alert.innerHTML = errors[data.errorCode];
+                alert.style.display = 'block';
+
                 return;
             }
 
-            var form = document.getElementById('form');
-            var reg = document.getElementById('register');
+            alert = document.getElementById('success');
+            alert.style.display = 'block';
+
             reg.value = JSON.stringify(data);
             form.submit();
         });
