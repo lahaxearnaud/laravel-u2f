@@ -55,7 +55,7 @@ class U2f
                 ) {
                     return $next($request);
                 } else {
-                    return redirect('u2f/auth');
+                    return redirect()->guest('u2f/auth');
                 }
 
             } else {

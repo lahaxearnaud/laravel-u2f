@@ -82,6 +82,10 @@ class U2fController extends Controller
      */
     public function authData()
     {
+        if($this->u2f->check()) {
+            return $this->redirectAfterSuccessAuth();
+        }
+
         $req = $this->u2f->getAuthenticateData(\Auth::user());
         \Event::fire('u2f.authentication.data', [ 'user' => \Auth::user() ]);
 
@@ -104,16 +108,22 @@ class U2fController extends Controller
             \Event::fire('u2f.authentication', [ 'u2fKey' => $key, 'user' => \Auth::user() ]);
             \Session::forget('u2f.authenticationData');
 
-            if (strlen($this->config->get('u2f.authenticate.postSuccessRedirectRoute'))) {
+            return $this->redirectAfterSuccessAuth();
 
-                return \Redirect::route($this->config->get('u2f.authenticate.postSuccessRedirectRoute'));
-            } else {
-                return redirect('/');
-            }
         } catch (\Exception $e) {
             \Session::flash('error', $e->getMessage());
 
             return \Redirect::route('u2f.auth.data');
+        }
+    }
+
+    protected function redirectAfterSuccessAuth()
+    {
+        if (strlen($this->config->get('u2f.authenticate.postSuccessRedirectRoute'))) {
+
+            return \Redirect::intended($this->config->get('u2f.authenticate.postSuccessRedirectRoute'));
+        } else {
+            return \Redirect::intended('/');
         }
     }
 }

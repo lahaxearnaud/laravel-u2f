@@ -49,5 +49,11 @@ return [
          * the route to redirect after a successful key authentication (default /)
          */
         'postSuccessRedirectRoute' => '',
-    ]
+    ],
+
+    /*
+     * The authenticate middleware. If the request is valid for this middleware we
+     * can get the current uer by Auth::user()
+     */
+    'authMiddlewareName' => 'auth'
 ];

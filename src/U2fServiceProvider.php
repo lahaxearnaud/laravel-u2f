@@ -24,6 +24,7 @@ class U2fServiceProvider extends ServiceProvider
         $routeConfig = [
             'namespace' => '\Lahaxearnaud\U2f\Http\Controllers',
             'prefix' => '/u2f/',
+            'middleware' => $this->app[ 'config' ]->get('u2f.authMiddlewareName', 'auth')
         ];
 
         $this->app[ 'router' ]->group($routeConfig, function(Router $router) {
