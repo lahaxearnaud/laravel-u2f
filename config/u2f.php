@@ -1,6 +1,6 @@
 <?php
 /**
-     * User: LAHAXE Arnaud <alahaxe@boursorama.fr>
+     * User: LAHAXE Arnaud
      * Date: 18/05/2015
      * Time: 17:49
      * FileName : u2f.php
