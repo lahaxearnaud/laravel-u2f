@@ -30,11 +30,13 @@ class U2fServiceProvider extends ServiceProvider
         $this->app[ 'router' ]->group($routeConfig, function(Router $router) {
             $router->get('register', [
                 'uses' => 'U2fController@registerData',
-                'as' => 'u2f.register.data'
+                'as' => 'u2f.register.data',
++               'middleware' => 'u2f'
             ]);
             $router->post('register', [
                 'uses' => 'U2fController@register',
-                'as' => 'u2f.register'
+                'as' => 'u2f.register',
++               'middleware' => 'u2f'
             ]);
 
             $router->get('auth', [
