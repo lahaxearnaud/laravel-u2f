@@ -24,28 +24,30 @@ class U2fServiceProvider extends ServiceProvider
         $routeConfig = [
             'namespace' => '\Lahaxearnaud\U2f\Http\Controllers',
             'prefix' => '/u2f/',
-            'middleware' => $this->app[ 'config' ]->get('u2f.authMiddlewareName', 'auth')
+            'middleware' => $this->app[ 'config' ]->get('u2f.authMiddlewareName', 'web')
         ];
 
         $this->app[ 'router' ]->group($routeConfig, function(Router $router) {
             $router->get('register', [
                 'uses' => 'U2fController@registerData',
                 'as' => 'u2f.register.data',
-+               'middleware' => 'u2f'
+               'middleware' => 'auth'
             ]);
             $router->post('register', [
                 'uses' => 'U2fController@register',
                 'as' => 'u2f.register',
-+               'middleware' => 'u2f'
+               'middleware' => 'auth'
             ]);
 
             $router->get('auth', [
                 'uses' => 'U2fController@authData',
-                'as' => 'u2f.auth.data'
+                'as' => 'u2f.auth.data',
+               'middleware' => 'auth'
             ]);
             $router->post('auth', [
                 'uses' => 'U2fController@auth',
-                'as' => 'u2f.auth'
+                'as' => 'u2f.auth',
+               'middleware' => 'auth'
             ]);
         });
 
