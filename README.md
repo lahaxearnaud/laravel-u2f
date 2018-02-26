@@ -22,7 +22,7 @@ In the config/app.php file:
 ``` php
 [
     //...
-    "Lahaxeanaud\U2f\LaravelU2fServiceProvider"
+    "Lahaxearnaud\U2f\LaravelU2fServiceProvider"
 ]
 ```
 
@@ -32,21 +32,21 @@ In the config/app.php file:
 ``` php
 [
     //...
-    'U2f' => 'Lahaxeanaud\U2f\U2fServiceFacade'
+    'U2f' => 'Lahaxearnaud\U2f\U2fServiceFacade'
 ]
 ```
 
 ### Configs
 
 ``` bash
-$ php artisan vendor:publish --provider="Lahaxeanaud\U2f\U2fServiceProvider" --tag=config
+$ php artisan vendor:publish --provider="Lahaxearnaud\U2f\U2fServiceProvider" --tag=config
 $ php artisan migrate
 ```
 
 ### Migrations
 
 ``` bash
-$ php artisan vendor:publish --provider="Lahaxeanaud\U2f\U2fServiceProvider" --tag=migrations
+$ php artisan vendor:publish --provider="Lahaxearnaud\U2f\U2fServiceProvider" --tag=migrations
 $ php artisan migrate
 ```
 
@@ -57,7 +57,7 @@ In the app/Http/Kernel.php file
 ``` php
 protected $routeMiddleware = [
     // ...
-    'u2f' => 'Lahaxeanaud\U2f\Http\Middleware\U2f',
+    'u2f' => 'Lahaxearnaud\U2f\Http\Middleware\U2f',
 ];
 ```
 
