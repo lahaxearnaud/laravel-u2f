@@ -64,6 +64,8 @@ class U2fController extends Controller
             $key = $this->u2f->doRegister(\Auth::user(), session('u2f.registerData'), json_decode($request->get('register')));
             \Event::fire('u2f.register', [ 'u2fKey' => $key, 'user' => \Auth::user() ]);
             session()->forget('u2f.registerData');
+            
+            session([$this->config->get('u2f.sessionU2fName') => true]);
 
             if ($this->config->get('u2f.register.postSuccessRedirectRoute')) {
 
