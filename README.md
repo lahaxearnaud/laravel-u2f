@@ -96,3 +96,7 @@ If you discover any security related issues, please email lahaxe[dot]arnaud[at]g
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+## After coding
+
+What better way to relax, after spending hours coding, than a good [cocktail](https://cocktailand.fr) on the terrace?
