@@ -4,9 +4,11 @@
 
 This PSR4 package provide u2f protocol integration in laravel 5 framework.
 
+
 ## Requirements
 - A top level domain
 - HTTPS
+- PHP 7.* (If you want to use this package en php 5 you need to use the version v1.1.0)
 
 ## Install
 
