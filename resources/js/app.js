@@ -6,7 +6,7 @@ u2fClient = {
     login: function (request, errors) {
         setTimeout(function () {
 
-            u2f.sign(request, function (data) {
+            u2f.sign(request[0].appId, request[0].challenge, request, function (data) {
                 var alert = null;
 
                 if (data.errorCode) {
@@ -30,7 +30,7 @@ u2fClient = {
 
     register: function (request, keys, errors) {
         setTimeout(function () {
-            u2f.register([request], keys, function (data) {
+            u2f.register(request.appId, [request], keys, function (data) {
                 var form = document.getElementById('form');
                 var reg = document.getElementById('register');
                 var alert = null;
