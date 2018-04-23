@@ -89,6 +89,9 @@ If you discover any security related issues, please email lahaxe[dot]arnaud[at]g
 ## Credits
 
 - [Arnaud LAHAXE](https://github.com/lahaxearnaud)
+- [Mike Robinson](https://github.com/multiwebinc)
+- [Chakphanu Komasathit](https://github.com/chakphanu)
+- [Anne Jan Brouwer](https://github.com/annejan)
 
 ## License
 
