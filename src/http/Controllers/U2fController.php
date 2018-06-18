@@ -1,13 +1,12 @@
 <?php namespace Lahaxearnaud\U2f\Http\Controllers;
 
-use App\Event;
-use App\Http\Controllers\Controller;
-use Lahaxearnaud\U2f\U2f as LaravelU2f;
-use Illuminate\Config\Repository as Config;
-
 use Illuminate\Http\Request;
-
-
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
+use Lahaxearnaud\U2f\U2f as LaravelU2f;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Config\Repository as Config;
 
 class U2fController extends Controller
 {
@@ -41,8 +40,8 @@ class U2fController extends Controller
      */
     public function registerData()
     {
-        list($req, $sigs) = $this->u2f->getRegisterData(\Auth::user());
-        \Event::fire('u2f.register.data', [ 'user' => \Auth::user() ]);
+        list($req, $sigs) = $this->u2f->getRegisterData(Auth::user());
+        Event::fire('u2f.register.data', [ 'user' => Auth::user() ]);
 
         session(['u2f.registerData' => $req]);
 
@@ -61,22 +60,22 @@ class U2fController extends Controller
     public function register(Request $request)
     {
         try {
-            $key = $this->u2f->doRegister(\Auth::user(), session('u2f.registerData'), json_decode($request->get('register')));
-            \Event::fire('u2f.register', [ 'u2fKey' => $key, 'user' => \Auth::user() ]);
+            $key = $this->u2f->doRegister(Auth::user(), session('u2f.registerData'), json_decode($request->get('register')));
+            Event::fire('u2f.register', [ 'u2fKey' => $key, 'user' => Auth::user() ]);
             session()->forget('u2f.registerData');
             
             session([$this->config->get('u2f.sessionU2fName') => true]);
 
             if ($this->config->get('u2f.register.postSuccessRedirectRoute')) {
 
-                return \Redirect::route($this->config->get('u2f.register.postSuccessRedirectRoute'));
+                return Redirect::route($this->config->get('u2f.register.postSuccessRedirectRoute'));
             } else {
                 return redirect('/');
             }
 
         } catch (\Exception $e) {
 
-            return \Redirect::route('u2f.register.data');
+            return Redirect::route('u2f.register.data');
         }
     }
 
@@ -93,8 +92,8 @@ class U2fController extends Controller
             return $this->redirectAfterSuccessAuth();
         }
 
-        $req = $this->u2f->getAuthenticateData(\Auth::user());
-        \Event::fire('u2f.authentication.data', [ 'user' => \Auth::user() ]);
+        $req = $this->u2f->getAuthenticateData(Auth::user());
+        Event::fire('u2f.authentication.data', [ 'user' => Auth::user() ]);
 
         session(['u2f.authenticationData' => $req]);
 
@@ -112,8 +111,8 @@ class U2fController extends Controller
     {
 
         try {
-            $key = $this->u2f->doAuthenticate(\Auth::user(), session('u2f.authenticationData'), json_decode($request->get('authentication')));
-            \Event::fire('u2f.authentication', [ 'u2fKey' => $key, 'user' => \Auth::user() ]);
+            $key = $this->u2f->doAuthenticate(Auth::user(), session('u2f.authenticationData'), json_decode($request->get('authentication')));
+            Event::fire('u2f.authentication', [ 'u2fKey' => $key, 'user' => Auth::user() ]);
             session()->forget('u2f.authenticationData');
 
             return $this->redirectAfterSuccessAuth();
@@ -121,7 +120,7 @@ class U2fController extends Controller
         } catch (\Exception $e) {
             session()->flash('error', $e->getMessage());
 
-            return \Redirect::route('u2f.auth.data');
+            return Redirect::route('u2f.auth.data');
         }
     }
 
@@ -130,9 +129,9 @@ class U2fController extends Controller
 
         if (strlen($this->config->get('u2f.authenticate.postSuccessRedirectRoute'))) {
 
-            return \Redirect::intended($this->config->get('u2f.authenticate.postSuccessRedirectRoute'));
+            return Redirect::intended($this->config->get('u2f.authenticate.postSuccessRedirectRoute'));
         } else {
-            return \Redirect::intended('/');
+            return Redirect::intended('/');
         }
     }
 }

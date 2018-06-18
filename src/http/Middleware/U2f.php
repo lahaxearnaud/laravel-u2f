@@ -1,6 +1,7 @@
 <?php namespace Lahaxearnaud\U2f\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 use Lahaxearnaud\U2f\U2f as LaravelU2f;
 use Lahaxearnaud\U2f\Models\U2fKey;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -48,9 +49,9 @@ class U2f
         }
 
         if (!$this->u2f->check()) {
-            if(!\Auth::guest()){
+            if(!Auth::guest()){
                 if(
-                    U2fKey::where('user_id', '=', \Auth::user()->id)->count()  === 0
+                    U2fKey::where('user_id', '=', Auth::user()->getAuthIdentifier())->count()  === 0
                     && $this->config->get('u2f.byPassUserWithoutKey')
                 ) {
                     return $next($request);
