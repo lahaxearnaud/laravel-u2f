@@ -1,10 +1,10 @@
 <?php namespace Lahaxearnaud\U2f;
 
-use App\User;
 use Lahaxearnaud\U2f\Models\U2fKey;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Config\Repository as Config;
 use Illuminate\Session\SessionManager as Session;
-
+use Illuminate\Contracts\Auth\Authenticatable as User;
 
 /**
  * Class LaravelU2f
@@ -36,8 +36,8 @@ class U2f {
      */
     public function __construct(Config $config, Session $session)
     {
-        $scheme = \Request::isSecure() ? "https://" : "http://";
-        $this->u2f = new \u2flib_server\U2F($scheme . \Request::getHttpHost());
+        $scheme = Request::isSecure() ? "https://" : "http://";
+        $this->u2f = new \u2flib_server\U2F($scheme . Request::getHttpHost());
         $this->config = $config;
         $this->session = $session;
     }
@@ -45,20 +45,19 @@ class U2f {
     /**
      * @author LAHAXE Arnaud
      *
-     * @param \App\User $user
+     * @param User $user
      *
      * @return mixed
      */
     public function getRegisterData(User $user)
     {
-
-        return $this->u2f->getRegisterData(U2fKey::where('user_id', $user->id)->get()->all());
+        return $this->u2f->getRegisterData(U2fKey::where('user_id', $user->getAuthIdentifier())->get()->all());
     }
 
     /**
      * @author LAHAXE Arnaud
      *
-     * @param \App\User $user
+     * @param User $user
      * @param           $registerData
      * @param           $keyData
      *
@@ -67,7 +66,7 @@ class U2f {
     public function doRegister(User $user, $registerData, $keyData)
     {
         $reg = $this->u2f->doRegister($registerData, $keyData);
-        $reg->user_id = $user->id;
+        $reg->user_id = $user->getAuthIdentifier();
 
         return U2fKey::create((array) $reg);
     }
@@ -75,20 +74,20 @@ class U2f {
     /**
      * @author LAHAXE Arnaud
      *
-     * @param \App\User $user
+     * @param User $user
      *
      * @return mixed
      */
     public function getAuthenticateData(User $user)
     {
 
-        return $this->u2f->getAuthenticateData(U2fKey::where('user_id', $user->id)->get()->all());
+        return $this->u2f->getAuthenticateData(U2fKey::where('user_id', $user->getAuthIdentifier())->get()->all());
     }
 
     /**
      * @author LAHAXE Arnaud
      *
-     * @param \App\User $user
+     * @param User $user
      * @param           $authData
      * @param           $keyData
      *
@@ -99,12 +98,12 @@ class U2f {
 
         $reg = $this->u2f->doAuthenticate(
             $authData,
-            U2fKey::where('user_id', $user->id)->get()->all(),
+            U2fKey::where('user_id', $user->getAuthIdentifier())->get()->all(),
             $keyData
         );
 
         $U2fKey = U2fKey::where([
-            'user_id' => $user->id,
+            'user_id' => $user->getAuthIdentifier(),
             'publicKey' => $reg->publicKey
         ])->first();
 

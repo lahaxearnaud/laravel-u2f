@@ -30,6 +30,7 @@ class U2fKey extends Model
      */
     public function user()
     {
-        return $this->belongsTo('\App\User');
+        $model = config('auth.providers.users.model');
+        return $this->belongsTo($model);
     }
 }
