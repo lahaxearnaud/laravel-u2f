@@ -44,10 +44,10 @@
 </div>
 
 
-
-{!! Form::open(array('route' => 'u2f.register', 'id' => 'form')) !!}
-    {!! Form::hidden('register', '', ['id' => 'register']) !!}
-{!! Form::close() !!}
+<form method="POST" action="{{ route('u2f.register') }}" id="form">
+    @csrf
+    <input type="hidden" name="register" id="register">
+</form>
 
 <script type="text/javascript">
     var sigs = {!! json_encode($currentKeys) !!};

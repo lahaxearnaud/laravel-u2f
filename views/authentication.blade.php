@@ -16,7 +16,7 @@
             <div class="panel-heading">
                 <h1 class="panel-title">{{ trans('u2f::messages.auth.title') }}</h1>
             </div>
-            <div class="panel-body" style="padding: 5px">
+            <div class="panel-body" style="padding: 10px">
 
                 <div class="alert alert-danger" role="alert" id="error" style="display: none"></div>
                 <div class="alert alert-success" role="alert" id="success" style="display: none">
@@ -41,10 +41,10 @@
     </div>
 </div>
 
-
-{!! Form::open(array('route' => 'u2f.auth', 'id' => 'form')) !!}
-{!! Form::hidden('authentication', '', ['id' => 'authentication']) !!}
-{!! Form::close() !!}
+<form method="POST" action="{{ route('u2f.auth') }}" id="form">
+    @csrf
+    <input type="hidden" name="authentication" id="authentication">
+</form>
 
 <script type="text/javascript">
         var req = {!! json_encode($authenticationData) !!};

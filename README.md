@@ -44,6 +44,12 @@ In the config/app.php file:
 $ php artisan vendor:publish --provider="Lahaxearnaud\U2f\U2fServiceProvider" --tag=config
 ```
 
+### Assets
+
+```
+php artisan vendor:publish --provider="Lahaxearnaud\U2f\U2fServiceProvider" --tag=public
+```
+
 ### Migrations
 
 ``` bash
@@ -76,7 +82,18 @@ In the route.php file add the u2f middleware on your routes or groups:
 
 ### Events
 
-// to do
+- Name: `u2f.authentication`
+
+  Payload: ```[ 'u2fKey' => $key, 'user' => Auth::user() ]```
+
+  Description: An user authenticate himself with a valid u2f key
+
+- Name: `u2f.register`
+
+  Payload ```[ 'u2fKey' => $key, 'user' => Auth::user() ]```
+
+  Description: An user register a new u2f key
+
 
 ## Change log
 
