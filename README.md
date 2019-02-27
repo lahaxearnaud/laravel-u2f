@@ -47,7 +47,7 @@ $ php artisan vendor:publish --provider="Lahaxearnaud\U2f\U2fServiceProvider" --
 ### Assets
 
 ```
-php artisan vendor:publish --provider="Lahaxearnaud\U2f\U2fServiceProvider" --tag=public
+$ php artisan vendor:publish --provider="Lahaxearnaud\U2f\U2fServiceProvider" --tag=public
 ```
 
 ### Migrations
@@ -62,13 +62,16 @@ $ php artisan migrate
 In the app/Http/Kernel.php file
 
 ``` php
-protected $routeMiddleware = [
-    // ...
-    \Lahaxearnaud\U2f\Http\Middleware\U2f::class,
-];
+ protected $routeMiddleware = [
+        'auth' => \App\Http\Middleware\Authenticate::class,
+// ...
+        'u2f' => \Lahaxearnaud\U2f\Http\Middleware\U2f::class,
+    ];
 ```
 
 ## Usage
+
+A [example projet](https://github.com/lahaxearnaud/laravel-u2f-example) is available to help you with the configuration / usage.
 
 ### Middleware
 
@@ -78,6 +81,22 @@ In the route.php file add the u2f middleware on your routes or groups:
         //
     }]);
 ```
+
+In controller:
+
+```php
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(['auth', 'u2f']);
+    }
+
+```
+
 ### Configuration
 
 ### Events

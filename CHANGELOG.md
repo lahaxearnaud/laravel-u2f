@@ -4,7 +4,7 @@ All Notable changes to `laravel-u2f` will be documented in this file
 
 
 ### Added
-- Nothing
+- 02-27-2019 Laravel 5.8 Support
 
 ### Deprecated
 - Nothing
