@@ -55,7 +55,7 @@ class U2fController extends Controller
      * @author LAHAXE Arnaud
      *
      *
-     * @return mixed
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function register(Request $request)
     {
@@ -87,7 +87,7 @@ class U2fController extends Controller
      */
     public function authData()
     {
-        if($this->u2f->check()) {
+        if ($this->u2f->check()) {
 
             return $this->redirectAfterSuccessAuth();
         }
