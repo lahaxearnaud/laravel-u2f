@@ -18,26 +18,6 @@ Via Composer
 $ composer require lahaxearnaud/laravel-u2f
 ```
 
-### Provider
-
-In the config/app.php file:
-``` php
-[
-    //...
-    Lahaxearnaud\U2f\U2fServiceProvider::class,
-]
-```
-
-### Alias
-
-In the config/app.php file:
-``` php
-[
-    //...
-    'U2f' => Lahaxearnaud\U2f\U2fFacade::class,
-]
-```
-
 ### Configs
 
 ``` bash

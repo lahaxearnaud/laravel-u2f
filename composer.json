@@ -36,5 +36,15 @@
         "psr-4": {
             "Lahaxearnaud\\U2f\\": "src"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Lahaxearnaud\\U2f\\U2fServiceProvider"
+            ],
+            "aliases": {
+                "U2f": "Lahaxearnaud\\U2f\\U2fFacade"
+            }
+        }
     }
 }
