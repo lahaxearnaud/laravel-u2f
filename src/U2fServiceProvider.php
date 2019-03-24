@@ -20,7 +20,6 @@ class U2fServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-
         $routeConfig = [
             'namespace' => '\Lahaxearnaud\U2f\Http\Controllers',
             'prefix' => '/u2f/',
@@ -90,5 +89,4 @@ class U2fServiceProvider extends ServiceProvider
     {
         return [ 'u2f' ];
     }
-
 }

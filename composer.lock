@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9496136d5aad803c81bd3113dff8153f",
+    "content-hash": "009a17db51c26cacf681b5aae97472db",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -590,16 +590,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.16.0",
+            "version": "2.16.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "dd16fedc022180ea4292a03aabe95e9895677911"
+                "reference": "b509524136d579f6b15ad9af4e5bd4533d1ab6c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/dd16fedc022180ea4292a03aabe95e9895677911",
-                "reference": "dd16fedc022180ea4292a03aabe95e9895677911",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/b509524136d579f6b15ad9af4e5bd4533d1ab6c2",
+                "reference": "b509524136d579f6b15ad9af4e5bd4533d1ab6c2",
                 "shasum": ""
             },
             "require": {
@@ -646,7 +646,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2019-03-12T09:31:40+00:00"
+            "time": "2019-03-20T12:20:01+00:00"
         },
         {
             "name": "opis/closure",
@@ -1642,7 +1642,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "BackEndTea@gmail.com"
+                    "email": "backendtea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
@@ -2266,26 +2266,24 @@
         },
         {
             "name": "yubico/u2flib-server",
-            "version": "1.0.2",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yubico/php-u2flib-server.git",
-                "reference": "55d813acf68212ad2cadecde07551600d6971939"
+                "reference": "dc318c80b59e62921c210f31b014def26ceebbab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yubico/php-u2flib-server/zipball/55d813acf68212ad2cadecde07551600d6971939",
-                "reference": "55d813acf68212ad2cadecde07551600d6971939",
+                "url": "https://api.github.com/repos/Yubico/php-u2flib-server/zipball/dc318c80b59e62921c210f31b014def26ceebbab",
+                "reference": "dc318c80b59e62921c210f31b014def26ceebbab",
                 "shasum": ""
             },
             "require": {
                 "ext-openssl": "*",
-                "paragonie/random_compat": ">= 1",
                 "php": ">=5.6"
             },
             "require-dev": {
-                "phpunit/phpunit": "~5.7",
-                "vimeo/psalm": "^0|^1|^2"
+                "phpunit/phpunit": "~5.7"
             },
             "type": "library",
             "autoload": {
@@ -2299,7 +2297,7 @@
             ],
             "description": "Library for U2F implementation",
             "homepage": "https://developers.yubico.com/php-u2flib-server",
-            "time": "2018-09-07T08:16:44+00:00"
+            "time": "2017-05-09T07:33:58+00:00"
         }
     ],
     "packages-dev": [],
