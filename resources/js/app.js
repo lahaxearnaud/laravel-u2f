@@ -2,7 +2,7 @@
  * Created by arnaud on 21/05/15.
  */
 
-u2fClient = {
+var u2fClient = {
     login: function (request, errors) {
         setTimeout(function () {
 
@@ -10,9 +10,10 @@ u2fClient = {
                 var alert = null;
 
                 if (data.errorCode) {
-                    alert = document.getElementById('error');
+                    alert = document.getElementById('u2f-error');
                     alert.innerHTML = errors[data.errorCode];
-                    alert.style.display = 'block';
+                    alert.classList.toggle('d-none');
+                    alert.classList.toggle('d-block');
 
                     return;
                 }
@@ -20,8 +21,9 @@ u2fClient = {
                 var form = document.getElementById('form');
                 var auth = document.getElementById('authentication');
 
-                alert = document.getElementById('success');
-                alert.style.display = 'block';
+                alert = document.getElementById('u2f-success');
+                alert.classList.toggle('d-none');
+                alert.classList.toggle('d-block');
                 auth.value = JSON.stringify(data);
                 form.submit();
             });
@@ -30,25 +32,29 @@ u2fClient = {
 
     register: function (request, keys, errors) {
         setTimeout(function () {
-            u2f.register(request.appId, [request], keys, function (data) {
+            var registerRequests = [{version: request.version, challenge: request.challenge, attestation: 'direct'}];
+
+            u2f.register(request.appId, registerRequests, [request], keys, function (data) {
                 var form = document.getElementById('form');
                 var reg = document.getElementById('register');
                 var alert = null;
 
                 if (data.errorCode) {
-                    alert = document.getElementById('error');
+                    alert = document.getElementById('u2f-error');
                     alert.innerHTML = errors[data.errorCode];
-                    alert.style.display = 'block';
+                    alert.classList.toggle('d-none');
+                    alert.classList.toggle('d-block');
 
                     return;
                 }
 
-                alert = document.getElementById('success');
-                alert.style.display = 'block';
+                alert = document.getElementById('u2f-success');
+                alert.classList.toggle('d-none');
+                alert.classList.toggle('d-block');
 
                 reg.value = JSON.stringify(data);
                 form.submit();
             });
         }, 1000);
     }
-}
+};

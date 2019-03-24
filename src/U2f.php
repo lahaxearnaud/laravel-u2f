@@ -80,7 +80,6 @@ class U2f {
      */
     public function getAuthenticateData(User $user)
     {
-
         return $this->u2f->getAuthenticateData(U2fKey::where('user_id', $user->getAuthIdentifier())->get()->all());
     }
 
@@ -95,7 +94,6 @@ class U2f {
      */
     public function doAuthenticate(User $user, $authData, $keyData)
     {
-
         $reg = $this->u2f->doAuthenticate(
             $authData,
             U2fKey::where('user_id', $user->getAuthIdentifier())->get()->all(),
@@ -113,7 +111,7 @@ class U2f {
 
         $U2fKey->counter = $reg->counter;
         $U2fKey->save();
-        
+
         session([$this->config->get('u2f.sessionU2fName') => true]);
 
         return $U2fKey;

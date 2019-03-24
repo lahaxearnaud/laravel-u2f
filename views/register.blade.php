@@ -1,67 +1,72 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="Content-Language" content="fr" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
     <script src="{!! secure_asset('vendor/u2f/u2f.js') !!}"></script>
     <script src="{!! secure_asset('vendor/u2f/app.js') !!}"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+    <div id="app">
+        <main class="py-4">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">{{ __('u2f::messages.register.title') }}</div>
 
+                            <div class="card-body">
+                                <div class="alert alert-danger d-none" role="alert" id="u2f-error"></div>
+                                <div class="alert alert-success d-none" role="alert" id="u2f-success">
+                                    {{ __('u2f::messages.success') }}
+                                </div>
 
+                                <div align="center">
+                                    <img src="https://ssl.gstatic.com/accounts/strongauth/Challenge_2SV-Gnubby_graphic.png" alt=""/>
+                                </div>
 
-<div class="container" style="margin-top:30px">
-    <div class="col-md-6 col-md-offset-3">
-        <div class="login-panel panel panel-default">
-            <div class="panel-heading">
-                <h1 class="panel-title">{{ trans('u2f::messages.register.title') }}</h1>
-            </div>
-            <div class="panel-body" style="padding: 5px">
+                                <h3>
+                                    {{ __('u2f::messages.insertKey') }}
+                                </h3>
 
-                <div class="alert alert-danger" role="alert" id="error" style="display: none"></div>
-                <div class="alert alert-success" role="alert" id="success" style="display: none">
-                    {{ trans('u2f::messages.success') }}
+                                <p>
+                                    {{ __('u2f::messages.buttonAdvise') }}
+                                    <br>
+                                    {{ __('u2f::messages.noButtonAdvise') }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <div align="center">
-                    <img src="https://ssl.gstatic.com/accounts/strongauth/Challenge_2SV-Gnubby_graphic.png" alt=""/>
-                </div>
-
-                <h3>
-                    {{ trans('u2f::messages.insertKey') }}
-                </h3>
-
-                <p>
-                    {{ trans('u2f::messages.buttonAdvise') }}
-                    <br>
-                    {{ trans('u2f::messages.noButtonAdvise') }}
-                </p>
             </div>
-        </div>
+
+            <form method="POST" action="{{ route('u2f.register') }}" id="form">
+                @csrf
+                <input type="hidden" name="register" id="register">
+            </form>
+
+        </main>
     </div>
-</div>
 
+    <script>
+        var sigs = {!! json_encode($currentKeys) !!};
+        var req = {!! json_encode($registerData) !!};
 
-<form method="POST" action="{{ route('u2f.register') }}" id="form">
-    @csrf
-    <input type="hidden" name="register" id="register">
-</form>
+        var errors = {
+            1: "{{ __('u2f::errors.other_error') }}",
+            2: "{{ __('u2f::errors.bad_request') }}",
+            3: "{{ __('u2f::errors.configuration_unsupported') }}",
+            4: "{{ __('u2f::errors.device_ineligible') }}",
+            5: "{{ __('u2f::errors.timeout') }}"
+        };
 
-<script type="text/javascript">
-    var sigs = {!! json_encode($currentKeys) !!};
-    var req = {!! json_encode($registerData) !!};
-
-    var errors = {
-        1: "{{ trans('u2f::errors.other_error') }}",
-        2: "{{ trans('u2f::errors.bad_request') }}",
-        3: "{{ trans('u2f::errors.configuration_unsupported') }}",
-        4: "{{ trans('u2f::errors.device_ineligible') }}",
-        5: "{{ trans('u2f::errors.timeout') }}"
-    };
-
-    u2fClient.register(req, sigs, errors);
-</script>
+        u2fClient.register(req, sigs, errors);
+    </script>
 </body>
 </html>
