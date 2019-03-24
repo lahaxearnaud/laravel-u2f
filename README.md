@@ -23,19 +23,27 @@ Laravel 5.5 uses Package Auto-Discovery, so doesn't require you to manually add 
 ### Configs
 
 ``` bash
-$ php artisan vendor:publish --provider="Lahaxearnaud\U2f\U2fServiceProvider" --tag=config
+$ php artisan vendor:publish --provider="Lahaxearnaud\U2f\U2fServiceProvider" --tag=u2f-config
 ```
 
 ### Assets
 
 ```
-$ php artisan vendor:publish --provider="Lahaxearnaud\U2f\U2fServiceProvider" --tag=public
+$ php artisan vendor:publish --provider="Lahaxearnaud\U2f\U2fServiceProvider" --tag=u2f-components
 ```
+
+### Views
+
+```
+$ php artisan vendor:publish --provider="Lahaxearnaud\U2f\U2fServiceProvider" --tag=u2f-views
+```
+
+Note that default views use Laravel's default Bootstrap 4. If you don't use it, you have to update the views.
 
 ### Migrations
 
 ``` bash
-$ php artisan vendor:publish --provider="Lahaxearnaud\U2f\U2fServiceProvider" --tag=migrations
+$ php artisan vendor:publish --provider="Lahaxearnaud\U2f\U2fServiceProvider" --tag=u2f-migrations
 $ php artisan migrate
 ```
 
@@ -111,6 +119,7 @@ If you discover any security related issues, please email lahaxe[dot]arnaud[at]g
 - [Chakphanu Komasathit](https://github.com/chakphanu)
 - [Anne Jan Brouwer](https://github.com/annejan)
 - [Alexis Saettler](https://github.com/asbiin)
+- [Thomas Lété](https://github.com/bistory)
 
 ## License
 
