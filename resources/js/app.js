@@ -34,7 +34,7 @@ var u2fClient = {
         setTimeout(function () {
             var registerRequests = [{version: request.version, challenge: request.challenge, attestation: 'direct'}];
 
-            u2f.register(request.appId, registerRequests, [request], keys, function (data) {
+            u2f.register(request.appId, registerRequests, keys, function (data) {
                 var form = document.getElementById('form');
                 var reg = document.getElementById('register');
                 var alert = null;
