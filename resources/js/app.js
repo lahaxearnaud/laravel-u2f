@@ -10,10 +10,12 @@ var u2fClient = {
                 var alert = null;
 
                 if (data.errorCode) {
-                    alert = document.getElementById('u2f-error');
-                    alert.innerHTML = errors[data.errorCode];
-                    alert.classList.toggle('d-none');
-                    alert.classList.toggle('d-block');
+                    if (alert) {
+                        alert = document.getElementById('u2f-error');
+                        alert.innerHTML = errors[data.errorCode];
+                        alert.classList.toggle('d-none');
+                        alert.classList.toggle('d-block');
+                    }
 
                     return;
                 }
@@ -22,8 +24,10 @@ var u2fClient = {
                 var auth = document.getElementById('authentication');
 
                 alert = document.getElementById('u2f-success');
-                alert.classList.toggle('d-none');
-                alert.classList.toggle('d-block');
+                if (alert) {
+                    alert.classList.toggle('d-none');
+                    alert.classList.toggle('d-block');
+                }
                 auth.value = JSON.stringify(data);
                 form.submit();
             });
