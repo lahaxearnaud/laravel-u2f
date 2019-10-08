@@ -1,16 +1,15 @@
 <?php namespace Lahaxearnaud\U2f\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Config\Repository as Config;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
-use Lahaxearnaud\U2f\U2f as LaravelU2f;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Config\Repository as Config;
+use Lahaxearnaud\U2f\U2f as LaravelU2f;
 
 class U2fController extends Controller
 {
-
     /**
      * @var LaravelU2f
      */
@@ -47,7 +46,6 @@ class U2fController extends Controller
         return view($this->config->get('u2f.register.view'))
             ->with('currentKeys', $sigs)
             ->with('registerData', $req);
-
     }
 
     /**

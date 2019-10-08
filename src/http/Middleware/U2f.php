@@ -1,11 +1,11 @@
 <?php namespace Lahaxearnaud\U2f\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
-use Lahaxearnaud\U2f\U2f as LaravelU2f;
-use Lahaxearnaud\U2f\Models\U2fKey;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Config\Repository as Config;
+use Illuminate\Support\Facades\Auth;
+use Lahaxearnaud\U2f\Models\U2fKey;
+use Lahaxearnaud\U2f\U2f as LaravelU2f;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Class U2f

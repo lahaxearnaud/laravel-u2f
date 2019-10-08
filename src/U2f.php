@@ -15,7 +15,6 @@ use Illuminate\Contracts\Auth\Authenticatable as User;
  * @author  LAHAXE Arnaud
  */
 class U2f {
-
     /**
      * @var \u2flib_server\U2F
      */

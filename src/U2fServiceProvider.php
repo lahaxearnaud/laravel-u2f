@@ -5,7 +5,6 @@ use Illuminate\Support\ServiceProvider;
 
 class U2fServiceProvider extends ServiceProvider
 {
-
     /**
      * Indicates if loading of the provider is deferred.
      *
@@ -50,7 +49,6 @@ class U2fServiceProvider extends ServiceProvider
             ]);
         });
 
-
         $this->publishes([
             __DIR__ . '/../database/migrations/' => base_path('/database/migrations')
         ], 'u2f-migrations');
@@ -69,7 +67,6 @@ class U2fServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(__DIR__ . '/../views/', 'u2f');
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'u2f');
-
     }
 
     /**
@@ -81,7 +78,6 @@ class U2fServiceProvider extends ServiceProvider
     {
         $app = $this->app;
         $this->app->bind('u2f', function() use ($app){
-
             return new U2f($app->make('config'), $this->app->make('session'));
         });
     }
