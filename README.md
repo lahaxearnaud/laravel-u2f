@@ -119,6 +119,7 @@ If you discover any security related issues, please email lahaxe[dot]arnaud[at]g
 - [Anne Jan Brouwer](https://github.com/annejan)
 - [Alexis Saettler](https://github.com/asbiin)
 - [Thomas Lété](https://github.com/bistory)
+- [Luca Bognolo](https://github.com/bogny)
 
 ## License
 
