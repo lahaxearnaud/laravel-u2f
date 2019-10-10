@@ -50,23 +50,23 @@ class U2fServiceProvider extends ServiceProvider
         });
 
         $this->publishes([
-            __DIR__ . '/../database/migrations/' => base_path('/database/migrations')
+            __DIR__.'/../database/migrations/' => base_path('/database/migrations')
         ], 'u2f-migrations');
 
         $this->publishes([
-            __DIR__ . '/../config/u2f.php' => config_path('u2f.php')
+            __DIR__.'/../config/u2f.php' => config_path('u2f.php')
         ], 'u2f-config');
 
         $this->publishes([
-            __DIR__. '/../resources/js' => public_path('vendor/u2f'),
+            __DIR__.'/../resources/js' => public_path('vendor/u2f'),
         ], 'u2f-components');
 
         $this->publishes([
             __DIR__.'/../views' => resource_path('views/vendor/u2f'),
         ], 'u2f-views');
 
-        $this->loadViewsFrom(__DIR__ . '/../views/', 'u2f');
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'u2f');
+        $this->loadViewsFrom(__DIR__.'/../views/', 'u2f');
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'u2f');
     }
 
     /**
