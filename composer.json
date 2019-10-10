@@ -1,6 +1,6 @@
 {
     "name": "lahaxearnaud/laravel-u2f",
-    "description": "U2F support for laravel 5",
+    "description": "U2F support for laravel 6",
     "keywords": [
         "u2f",
         "security",
@@ -17,20 +17,20 @@
         }
     ],
     "require": {
-        "php" : ">=7.0",
-        "yubico/u2flib-server": "1.0.1",
-        "laravel/framework": "^5.8",
-        "illuminate/auth": "^5.8",
-        "illuminate/config": "^5.8",
-        "illuminate/container": "^5.8",
-        "illuminate/events": "^5.8",
-        "illuminate/database": "^5.8",
-        "illuminate/session": "^5.8",
-        "illuminate/routing": "^5.8",
-        "illuminate/http": "^5.8",
-        "illuminate/contracts": "^5.8",
-        "illuminate/view": "^5.8",
-        "illuminate/translation": "^5.8"
+        "php" : ">=7.2",
+        "laravel/framework": "^6.0",
+        "illuminate/auth": "^6.0",
+        "illuminate/config": "^6.0",
+        "illuminate/container": "^6.0",
+        "illuminate/events": "^6.0",
+        "illuminate/database": "^6.0",
+        "illuminate/session": "^6.0",
+        "illuminate/routing": "^6.0",
+        "illuminate/http": "^6.0",
+        "illuminate/contracts": "^6.0",
+        "illuminate/view": "^6.0",
+        "illuminate/translation": "^6.0",
+        "yubico/u2flib-server": "1.0.2"
     },
     "autoload": {
         "psr-4": {
