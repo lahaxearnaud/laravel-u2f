@@ -61,7 +61,7 @@ In the app/Http/Kernel.php file
 
 ## Usage
 
-A [example projet](https://github.com/lahaxearnaud/laravel-u2f-example) is available to help you with the configuration / usage.
+A [example project](https://github.com/lahaxearnaud/laravel-u2f-example) is available to help you with the configuration / usage.
 
 ### Middleware
 
@@ -103,7 +103,7 @@ public function __construct()
   Description: An user register a new u2f key
 
 
-## Change log
+## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
